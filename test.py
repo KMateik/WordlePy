@@ -2,7 +2,6 @@ import wordSuggest
 """
 ToDo: 
 1) error catch for if double letter, one green, one grey
-2) change input style so no spaces?
 """
 
 MyFile=open("words.txt","r")
@@ -12,60 +11,6 @@ WL=content.split("\n")
 MyFile.close()
 WL=WL[:-1]
 #print(WL)
-AL=['their', 'price']
-LL=['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
-    'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-# print(LL)
-def letterCount(WL, LL):
-    L=[0]*26
-
-    for i in WL:
-        #print('--------')
-        #print(i)
-        for l in i:
-            count=0
-            #print('-----')
-            #print(l)
-            for a in LL:
-                #print('---')
-                #print(a)
-                #print(count)
-                if l==a:
-                    L[count]=L[count]+1
-                    #print('if made: ' + str(L[count]))
-                count=count+1
-    #count=0
-    #for i in L:
-        #print(LL[count] + ': ' + str(i))
-        #count=count+1
-                      
-    res=dict(zip(LL, L))
-    sortRes={}
-    sorted_keys=sorted(res, key=res.get, reverse=True)
-
-    for w in sorted_keys:
-        sortRes[w]=res[w]
-    return sortRes
-
-#L=[0]*26
-#for i in WL:
-    #print('--------')
-    #print(i)
-    #print(i[0])
-    #count=0
-    #for a in LL:
-        #if i[0]==a:
-            #L[count]=L[count]+1
-        #count=count+1
-#count=0
-#for i in L:
-    #print(LL[count] + ': ' + str(i))
-    #count=count+1
-
-#print("Letter Counts:")
-#print(letterCount(WL, LL))
-#print(letterCount(WL,LL).keys())
-#print('-------------------')
 
 def wordFilter(wordleList, letters, n):
     filteredList = []
@@ -195,7 +140,6 @@ while wordle == True:
         #print(correctLetters)
         wordleList = wordFilter(wordleList,correctLetters,2)
         #print(wordleList)
-        #print(letterCount(wordleList,LL))
         
     print("Which letters are yellow? (Type \"none\" if none)")
     yellowLetters=input()
@@ -204,8 +148,8 @@ while wordle == True:
         #print(yellowLetters)
         wordleList = wordFilter(wordleList,yellowLetters,3)
         #print(wordleList)
-        #print(letterCount(wordleList,LL))
 
     rnd+=1
     if rnd==6:
         wordle = False
+        break
