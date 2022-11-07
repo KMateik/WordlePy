@@ -60,9 +60,12 @@ def wordSuggest(WSL):
     #print(sortRes)
     j = list(sortRes.keys())
 
-    wordSug=['']*3
-    for w in range(0,3):
-        wordSug[w] = j[w]
+    if len(j) >= 3:
+        wordSug=['']*3
+        for w in range(0,3):
+            wordSug[w] = j[w]
+    else:
+        wordSug = j
     return wordSug
 LL=['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
     'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']

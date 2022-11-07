@@ -11,7 +11,7 @@ content=MyFile.read()
 WL=content.split("\n")
 MyFile.close()
 WL=WL[:-1]
-print(WL)
+#print(WL)
 AL=['their', 'price']
 LL=['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
     'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
@@ -150,11 +150,19 @@ def wordFilter(wordleList, letters, n):
 
     return filteredList
 
-#def inputCorrection(UserIn):
+def inputCorrection(UserIn, Guess):
     #pass
-    #if len(UserIn) != 5:
-        
-    #for i in UserIn:
+    #print(UserIn + ' : ' + Guess)
+    if len(UserIn) != 5:
+        Correction = [' '] * 5
+        for i in UserIn:
+            #print("****")
+            #print(i)
+            for a in range(0,5):
+                #print("a= " + str(a))
+                if i == Guess[a]:
+                    Correction[a] = i
+    return Correction
         
 
 wordle = True
@@ -162,20 +170,29 @@ rnd=1
 wordleList = WL
 while wordle == True:
     print("I suggest you try: " + str(wordSuggest.wordSuggest(wordleList)))
+    print("Did you guess the word right? (y/n)")
+    gameOn = input()
+    if gameOn == 'y':
+        wordle = False
+        break
     print("What word did you try?")
     guess=input()
+
     print("Which letters were grey? (Type \"none\" if none)")
     greyLetters=input()
     if greyLetters!="none":
-        greyLetters=([*greyLetters])
-        
+        greyLetters=inputCorrection(greyLetters,guess)
+        #([*greyLetters])
+        #print(greyLetters)
         wordleList = wordFilter(wordleList,greyLetters,1)
         #print(wordleList)
         
     print("Which letters were green? (Type \"none\" if none)")
     correctLetters=input()
     if correctLetters!="none":
-        correctLetters=([*correctLetters])
+        correctLetters=inputCorrection(correctLetters,guess)
+        #([*correctLetters])
+        #print(correctLetters)
         wordleList = wordFilter(wordleList,correctLetters,2)
         #print(wordleList)
         #print(letterCount(wordleList,LL))
@@ -183,15 +200,12 @@ while wordle == True:
     print("Which letters are yellow? (Type \"none\" if none)")
     yellowLetters=input()
     if yellowLetters!="none":
+        yellowLetters = inputCorrection(yellowLetters,guess)
+        #print(yellowLetters)
         wordleList = wordFilter(wordleList,yellowLetters,3)
         #print(wordleList)
         #print(letterCount(wordleList,LL))
-    print("Did you guess the word right? (y/n)")
-    gameOn = input()
-    if gameOn == 'y':
-        wordle = False
-    else:
-        continue
+
     rnd+=1
     if rnd==6:
         wordle = False
